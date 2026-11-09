@@ -1,0 +1,111 @@
+# chalkwalkmusic.com
+
+The source for chalkwalk's main website, and the place where the plan for
+hosting it (and other public services) on Oracle Cloud is worked out.
+`/home/programming/AGENTS.md` (the shared workspace notes) applies first; it
+also describes the Oracle VM and the domains in general.
+
+Status (2026-11-09): the new landing page is built in `site/` but not yet
+published; the live site is still on Google Sites. Decisions and next steps are
+in `docs/hosting-plan.md`.
+
+## Layout
+
+- `site/`: the whole website, plain static HTML and CSS, no build step.
+  `index.html`, `style.css`, `favicon.svg`, `img/` (project images: WebP, 800×420,
+  made from each project site's `img/social-card.png`), `CNAME`.
+- `.github/workflows/pages.yml`: deploys `site/` to GitHub Pages on every push to
+  `main` that touches it.
+- `docs/`: planning notes. Not published.
+
+Preview locally: open `site/index.html` in a browser, or
+`python3 -m http.server -d site 8000`. Check it at phone width (390px) too.
+
+Style: professional and restrained, dark like the project sites (Docusaurus,
+#0f1216-ish backgrounds, cyan accent `#3ad1e0`), Inter + JetBrains Mono. The focus
+is the GitHub/dev work; music and video are a short section and footer links.
+No Twitter/X (not used).
+
+## What is live today (checked 2026-11-09)
+
+DNS for `chalkwalkmusic.com` is served by Squarespace Domains
+(`ns-cloud-e{1..4}.googledomains.com`), edited in the Squarespace console;
+only chalkwalk has access.
+
+| Name | Record | Serves |
+|---|---|---|
+| apex | A 198.185.159.145 (Squarespace) | a 301 to `http://www.` (plain http, not https) |
+| `www` | CNAME `ghs.googlehosted.com` | the Google Sites site (below) |
+| `antiphon` | CNAME `chalkwalk.github.io` | GitHub Pages of `chalkwalk/antiphon` |
+| `arps` | CNAME `chalkwalk.github.io` | GitHub Pages of `chalkwalk/arps-euclidya` |
+| `canopy` | CNAME `chalkwalk.github.io` | GitHub Pages of `chalkwalk/star-canopy` |
+| `lockstep` | CNAME `chalkwalk.github.io` | GitHub Pages of `chalkwalk/lockstep` |
+| `ninjam` | A 163.192.60.76 | the Oracle VM `ninjam` (Ninjam room, on demand) |
+| MX | Google Workspace (`aspmx.l.google.com` + alts) | mail |
+| TXT | `v=spf1 include:_spf.google.com ~all`; DKIM at `google._domainkey` | mail auth |
+
+No DMARC record (`_dmarc`) and no CAA record exist.
+
+All four GitHub Pages project sites use `build_type: workflow` (built by a GitHub
+Actions workflow in each repository) with HTTPS enforced. `solvespace-ng` also
+has Pages, at `chalkwalk.github.io/solvespace-ng/`, with no custom domain.
+
+Any change to the website must leave MX, SPF and DKIM alone: mail is Google
+Workspace and is unrelated to where the site is hosted.
+
+### The Google Sites site (www), as it stands
+
+Three pages, all thin; chalkwalk considers it badly out of date.
+- **Home**: "Electronic Music & More": Chalk Walk is a person and Chalk Walk Music
+  their electronic music and tech project; the YouTube channel is the main outlet
+  (FM and subtractive synthesis, music theory, hardware and software).
+- **Educational Content**: seven embedded YouTube tutorial series: Sonicware Liven
+  XFM (sound design + a track walkthrough), subtractive synthesis, keyboard and music
+  theory for synth players, Korg opsix, Sound Design Here:Create, ASM Hydrasynth.
+- **Sound Design Here:Create** (`/SDHC`): prompt-driven sound design projects, each
+  with source media and a finished piece: Sound for a Sculpture, Bloom & Wilt,
+  Machine Life, Pine's Fog.
+- Footer links: YouTube (`youtube.com/ChalkWalkMusic`), Bandcamp
+  (`chalkwalk.bandcamp.com`), SoundCloud (`soundcloud.com/chalkwalk`), Twitch
+  (`twitch.tv/chalk_walk`), Twitter/X (`@ChalkWalkMusic`).
+
+Nothing on it mentions the software projects below.
+
+## Public projects (github.com/chalkwalk, 2026-11-09)
+
+Only public work goes on the site. Active (pushed in the last few months):
+
+- **Plugins / apps**: `antiphon` (NINJAM client as a VST3/CLAP plugin, records
+  stems; site at `antiphon.`), `lockstep` (playable step sequencer; site at
+  `lockstep.`), `arps-euclidya` (euclidean arpeggiator, MPE; site at
+  `arps.`, the most starred), `star-canopy`
+  (procedural HDR space skyboxes; site at `canopy.`), `solvespace-ng` (SolveSpace
+  fork with OCCT kernel and assemblies), `asteroid-generator` (Blender + numpy).
+- **NINJAM ecosystem**: `chalkwalk-ninjam` (protocol library), `chalkwalk-jambot`
+  (bots that play in a room), plus the monthly room on the Oracle VM and the
+  planned `ninjam-balcony` web listener (local, not yet on GitHub).
+- **Libraries** (C++17, JUCE-free, MIT): `chalkwalk-dsp`, `chalkwalk-tape`,
+  `chalkwalk-music`, `chalkwalk-physical`, `chalkwalk-seed`; `chalkwalk-soundfont`
+  (patched FluidLite).
+- Older: `euclidean-arp` (prototype), `clipsort_merge`, `markwords`, `albgen`,
+  `mpk261-bitwig` (fork).
+
+`gh repo list chalkwalk` refreshes this.
+
+## Oracle Cloud free allowance, as it applies here
+
+Pay As You Go held inside Always Free (a $1 budget alert at 1%). What matters:
+- Ampere A1: 4 OCPU and 24 GB in total, in steps of 1 OCPU / 6 GB per VM.
+  The VM `ninjam` uses 2 OCPU / 12 GB.
+- Two VM.Standard.E2.1.Micro (AMD, 1/8 OCPU, 1 GB): fine for tiny services only.
+- **200 GB block storage in total, boot volumes included.** A boot volume is at
+  least ~47 GB, so storage, not CPU, caps the number of VMs at four (e.g. three A1s
+  and one micro, or two A1s and two micros), and each extra VM eats the room
+  left for data volumes.
+- About 10 TB/month outbound. Network speed per VM as chalkwalk understood it at
+  sign-up: ~50 Mbit/s public, 480 Mbit/s between VMs (to be confirmed by measuring).
+- Being on Pay As You Go, idle Always Free VMs are not reclaimed (Oracle reclaims
+  idle ones only on free-trial/free-only accounts). New A1 capacity in a region can
+  run out, so don't terminate a working A1 VM expecting to recreate it at once.
+- Anything outside Always Free is billable; check the shape says "Always Free
+  eligible" before creating anything.
