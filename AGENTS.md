@@ -21,7 +21,7 @@ in `docs/hosting-plan.md`.
   records every jam automatically (see its README).
 
 GitHub: `chalkwalk/chalkwalkmusic.com` (public). Pages is set to deploy from
-GitHub Actions, with the custom domain `www.chalkwalkmusic.com`.
+GitHub Actions, with the custom domain `chalkwalkmusic.com` (bare; `www` redirects to it).
 
 Preview locally: open `site/index.html` in a browser, or
 `python3 -m http.server -d site 8000`. Check it at phone width (390px) too.
