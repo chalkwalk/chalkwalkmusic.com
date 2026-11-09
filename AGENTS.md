@@ -5,8 +5,8 @@ hosting it (and other public services) on Oracle Cloud is worked out.
 `/home/programming/AGENTS.md` (the shared workspace notes) applies first; it
 also describes the Oracle VM and the domains in general.
 
-Status (2026-11-09): the new landing page is built in `site/` but not yet
-published; the live site is still on Google Sites. Decisions and next steps are
+Status (2026-11-09): the new landing page is live at https://chalkwalkmusic.com
+(GitHub Pages); the Google Site is retired. Decisions and next steps are
 in `docs/hosting-plan.md`.
 
 ## Layout
@@ -31,7 +31,7 @@ Style: professional and restrained, dark like the project sites (Docusaurus,
 is the GitHub/dev work; music and video are a short section and footer links.
 No Twitter/X (not used).
 
-## What is live today (checked 2026-11-09)
+## DNS (2026-11-09)
 
 DNS for `chalkwalkmusic.com` is served by Squarespace Domains
 (`ns-cloud-e{1..4}.googledomains.com`), edited in the Squarespace console;
@@ -39,8 +39,10 @@ only chalkwalk has access.
 
 | Name | Record | Serves |
 |---|---|---|
-| apex | A 198.185.159.145 (Squarespace) | a 301 to `http://www.` (plain http, not https) |
-| `www` | CNAME `ghs.googlehosted.com` | the Google Sites site (below) |
+| apex | A 185.199.108–111.153 (GitHub Pages) | this site, the main address |
+| `www` | CNAME `chalkwalk.github.io` | redirects to the apex |
+| `_github-pages-challenge-chalkwalk` | TXT | GitHub domain verification; keep it |
+| `m3dwkxsirt7c`, `p3ym6rf3yin6` | CNAME `…dv.googlehosted.com` | Google ownership checks; keep them |
 | `antiphon` | CNAME `chalkwalk.github.io` | GitHub Pages of `chalkwalk/antiphon` |
 | `arps` | CNAME `chalkwalk.github.io` | GitHub Pages of `chalkwalk/arps-euclidya` |
 | `canopy` | CNAME `chalkwalk.github.io` | GitHub Pages of `chalkwalk/star-canopy` |
@@ -58,9 +60,9 @@ has Pages, at `chalkwalk.github.io/solvespace-ng/`, with no custom domain.
 Any change to the website must leave MX, SPF and DKIM alone: mail is Google
 Workspace and is unrelated to where the site is hosted.
 
-### The Google Sites site (www), as it stands
+### The old Google Sites site (retired 2026-11-09), for reference
 
-Three pages, all thin; chalkwalk considers it badly out of date.
+Three pages, all thin, out of date. Its custom domain was removed.
 - **Home**: "Electronic Music & More": Chalk Walk is a person and Chalk Walk Music
   their electronic music and tech project; the YouTube channel is the main outlet
   (FM and subtractive synthesis, music theory, hardware and software).

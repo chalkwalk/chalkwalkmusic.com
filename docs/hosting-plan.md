@@ -19,25 +19,13 @@ Facts are in `../AGENTS.md`; this is what was decided and what is left to do.
   Raspberry Pi, and finding roomier free cloud storage, are for later.
 - **Always-open jambot room**: maybe later.
 
-## Steps to go live
+## Going live: done 2026-11-09
 
-1. Create the GitHub repository `chalkwalk/chalkwalkmusic.com` (public) and push
-   `main`.
-2. Repository settings → Pages → Source: GitHub Actions. Custom domain:
-   `www.chalkwalkmusic.com`. Wait for the workflow to deploy.
-3. Squarespace DNS (chalkwalk only):
-   - `www`: CNAME `chalkwalk.github.io` (instead of `ghs.googlehosted.com`).
-   - apex: replace the Squarespace A record (and the domain forwarding) with
-     GitHub's four A records `185.199.108.153`, `.109.153`, `.110.153`,
-     `.111.153`. GitHub then redirects the bare domain to `www` over HTTPS,
-     which also fixes today's redirect to plain http.
-   - leave MX, SPF and DKIM alone. Optionally add DMARC:
-     `_dmarc` TXT `v=DMARC1; p=none; rua=mailto:<an address you read>`.
-4. Once the certificate is issued, tick "Enforce HTTPS" in Pages settings.
-5. Optional: verify the domain in GitHub (account settings → Pages → verified
-   domains; adds one TXT record) so no one else can claim a subdomain of it on
-   GitHub Pages.
-6. In Google Sites, remove the custom domain from the old site (or unpublish it).
+Repo `chalkwalk/chalkwalkmusic.com`, Pages from Actions, custom domain
+`chalkwalkmusic.com` (bare; `www` redirects), HTTPS enforced, domain verified
+on chalkwalk's GitHub account, Squarespace forwarding removed, Google Sites
+custom domain removed. Optional still: a DMARC record
+(`_dmarc` TXT `v=DMARC1; p=none; rua=mailto:<an address you read>`).
 
 ## Shrinking `ninjam`
 
