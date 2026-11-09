@@ -51,7 +51,9 @@ only chalkwalk has access.
 | MX | Google Workspace (`aspmx.l.google.com` + alts) | mail |
 | TXT | `v=spf1 include:_spf.google.com ~all`; DKIM at `google._domainkey` | mail auth |
 
-No DMARC record (`_dmarc`) and no CAA record exist.
+DMARC: `_dmarc` TXT `v=DMARC1; p=none; rua=mailto:dmarc@chalkwalkmusic.com`
+(added 2026-11-09; reports only, nothing blocked). Tighten to `p=quarantine`, then
+`p=reject`, once the reports show only Google sends as the domain. No CAA record.
 
 All four GitHub Pages project sites use `build_type: workflow` (built by a GitHub
 Actions workflow in each repository) with HTTPS enforced. `solvespace-ng` also

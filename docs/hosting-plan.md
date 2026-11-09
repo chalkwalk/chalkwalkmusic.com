@@ -24,8 +24,7 @@ Facts are in `../AGENTS.md`; this is what was decided and what is left to do.
 Repo `chalkwalk/chalkwalkmusic.com`, Pages from Actions, custom domain
 `chalkwalkmusic.com` (bare; `www` redirects), HTTPS enforced, domain verified
 on chalkwalk's GitHub account, Squarespace forwarding removed, Google Sites
-custom domain removed. Optional still: a DMARC record
-(`_dmarc` TXT `v=DMARC1; p=none; rua=mailto:<an address you read>`).
+custom domain removed. DMARC added (`p=none`, reports to `dmarc@`).
 
 ## Shrinking `ninjam`
 
