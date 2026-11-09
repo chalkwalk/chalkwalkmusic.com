@@ -60,6 +60,13 @@ has Pages, at `chalkwalk.github.io/solvespace-ng/`, with no custom domain.
 Any change to the website must leave MX, SPF and DKIM alone: mail is Google
 Workspace and is unrelated to where the site is hosted.
 
+Mail stays on Google Workspace (decided 2026-11-09): one user, used only for
+email, under $1/month on a discount kept in perpetuity; the YouTube channel is on
+a different account. Self-hosting mail was ruled out (Oracle blocks outbound port
+25 by default; deliverability). Extra addresses are made in the Admin console:
+aliases (Directory → Users → Add alternate emails, up to 30) for mail to
+chalkwalk, Google Groups with external members for forwarding to others.
+
 ### The old Google Sites site (retired 2026-11-09), for reference
 
 Three pages, all thin, out of date. Its custom domain was removed.
