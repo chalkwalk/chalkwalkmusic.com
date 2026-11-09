@@ -17,6 +17,11 @@ in `docs/hosting-plan.md`.
 - `.github/workflows/pages.yml`: deploys `site/` to GitHub Pages on every push to
   `main` that touches it.
 - `docs/`: planning notes. Not published.
+- `ops/ninjam-vm/`: the utilization recorder installed on the Oracle VM, which
+  records every jam automatically (see its README).
+
+GitHub: `chalkwalk/chalkwalkmusic.com` (public). Pages is set to deploy from
+GitHub Actions, with the custom domain `www.chalkwalkmusic.com`.
 
 Preview locally: open `site/index.html` in a browser, or
 `python3 -m http.server -d site 8000`. Check it at phone width (390px) too.

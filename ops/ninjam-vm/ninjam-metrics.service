@@ -1,0 +1,21 @@
+[Unit]
+Description=Record VM utilization while the Ninjam room is open
+# Started with ninjam.service (WantedBy below) and stopped with it (PartOf).
+PartOf=ninjam.service
+After=ninjam.service
+
+[Service]
+ExecStart=/usr/local/bin/ninjam-metrics record --interval 5
+User=nobody
+Group=nogroup
+StateDirectory=ninjam-metrics
+StateDirectoryMode=0755
+Environment=NINJAM_METRICS_DIR=/var/lib/ninjam-metrics
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+TimeoutStopSec=20
+
+[Install]
+WantedBy=ninjam.service

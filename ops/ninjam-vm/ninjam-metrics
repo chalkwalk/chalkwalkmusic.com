@@ -1,0 +1,163 @@
+#!/usr/bin/env python3
+"""Record the VM's utilization while the Ninjam room is open.
+
+  ninjam-metrics record [--interval S]   sample until SIGTERM (systemd runs this)
+  ninjam-metrics summary [FILE.csv]      peaks and averages of one run (default: newest)
+
+Writes /var/lib/ninjam-metrics/<start time>.csv, one row per interval, and
+<start time>.summary.txt when the run ends. Reads only /proc; no dependencies.
+Watched processes (CPU and memory per process group): ninjamsrv, and the
+balcony once it exists (any process whose name starts with "balcony").
+"""
+import csv, glob, os, signal, sys, time
+
+DIR = os.environ.get("NINJAM_METRICS_DIR", "/var/lib/ninjam-metrics")
+PORT = 2049
+TICK = os.sysconf("SC_CLK_TCK")
+PAGE = os.sysconf("SC_PAGE_SIZE")
+FIELDS = ["time", "cpu_pct", "ninjam_cpu_pct", "balcony_cpu_pct", "mem_used_mb",
+          "ninjam_rss_mb", "balcony_rss_mb", "rx_kbit", "tx_kbit", "clients", "load1"]
+
+
+def group(comm):
+    if comm == "ninjamsrv":
+        return "ninjam"
+    if comm.startswith("balcony"):
+        return "balcony"
+    return None
+
+
+def cpu_total():
+    v = list(map(int, open("/proc/stat").readline().split()[1:]))
+    idle = v[3] + v[4]
+    return sum(v), idle
+
+
+def procs():
+    """{pid: (group, cpu ticks, rss bytes)} for watched processes."""
+    out = {}
+    for d in glob.glob("/proc/[0-9]*/stat"):
+        try:
+            s = open(d).read()
+        except OSError:
+            continue
+        comm = s[s.index("(") + 1:s.rindex(")")]
+        g = group(comm)
+        if not g:
+            continue
+        f = s[s.rindex(")") + 2:].split()
+        out[int(d.split("/")[2])] = (g, int(f[11]) + int(f[12]), int(f[21]) * PAGE)
+    return out
+
+
+def iface():
+    for line in open("/proc/net/route").readlines()[1:]:
+        p = line.split()
+        if p[1] == "00000000":
+            return p[0]
+    return None
+
+
+def net(dev):
+    for line in open("/proc/net/dev"):
+        if line.strip().startswith(dev + ":"):
+            f = line.split(":", 1)[1].split()
+            return int(f[0]), int(f[8])
+    return 0, 0
+
+
+def clients():
+    n = 0
+    for path in ("/proc/net/tcp", "/proc/net/tcp6"):
+        try:
+            for line in open(path).readlines()[1:]:
+                p = line.split()
+                if int(p[1].rsplit(":", 1)[1], 16) == PORT and p[3] == "01":
+                    n += 1
+        except OSError:
+            pass
+    return n
+
+
+def mem_used_mb():
+    m = {}
+    for line in open("/proc/meminfo"):
+        k, v = line.split(":")
+        m[k] = int(v.split()[0])
+    return (m["MemTotal"] - m["MemAvailable"]) / 1024
+
+
+def record(interval):
+    os.makedirs(DIR, exist_ok=True)
+    path = os.path.join(DIR, time.strftime("%Y-%m-%dT%H%M%S") + ".csv")
+    stop = []
+    signal.signal(signal.SIGTERM, lambda *_: stop.append(1))
+    signal.signal(signal.SIGINT, lambda *_: stop.append(1))
+    dev = iface()
+    ncpu = os.cpu_count()
+    t0, (tot0, idle0), p0, (rx0, tx0) = time.monotonic(), cpu_total(), procs(), net(dev)
+    with open(path, "w", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(FIELDS)
+        while not stop:
+            end = time.monotonic() + interval
+            while not stop and time.monotonic() < end:
+                time.sleep(0.5)
+            t1, (tot1, idle1), p1, (rx1, tx1) = time.monotonic(), cpu_total(), procs(), net(dev)
+            dt = max(t1 - t0, 1e-3)
+            busy = 100 * (1 - (idle1 - idle0) / max(tot1 - tot0, 1))
+            gcpu, grss = {"ninjam": 0.0, "balcony": 0.0}, {"ninjam": 0, "balcony": 0}
+            for pid, (g, ticks, rss) in p1.items():
+                prev = p0.get(pid, (g, ticks, 0))[1]
+                gcpu[g] += 100 * (ticks - prev) / TICK / dt / ncpu
+                grss[g] += rss
+            w.writerow([time.strftime("%Y-%m-%dT%H:%M:%S"), f"{busy:.1f}",
+                        f"{gcpu['ninjam']:.1f}", f"{gcpu['balcony']:.1f}",
+                        f"{mem_used_mb():.0f}", f"{grss['ninjam'] / 2**20:.1f}",
+                        f"{grss['balcony'] / 2**20:.1f}",
+                        f"{(rx1 - rx0) * 8 / 1000 / dt:.0f}", f"{(tx1 - tx0) * 8 / 1000 / dt:.0f}",
+                        clients(), f"{os.getloadavg()[0]:.2f}"])
+            fh.flush()
+            t0, tot0, idle0, p0, rx0, tx0 = t1, tot1, idle1, p1, rx1, tx1
+    text = summary(path)
+    with open(path[:-4] + ".summary.txt", "w") as fh:
+        fh.write(text)
+
+
+def summary(path=None):
+    if path is None:
+        files = sorted(glob.glob(os.path.join(DIR, "*.csv")))
+        if not files:
+            return "no recordings in " + DIR + "\n"
+        path = files[-1]
+    rows = list(csv.DictReader(open(path)))
+    if not rows:
+        return f"{path}: no samples\n"
+    out = [f"{os.path.basename(path)}: {rows[0]['time']} to {rows[-1]['time']}, "
+           f"{len(rows)} samples, {os.cpu_count()} CPUs"]
+    busy = [r for r in rows if int(r["clients"]) > 0]
+    if busy:
+        out.append(f"while anyone was connected: {len(busy)} samples")
+    else:
+        busy = rows
+        out.append("nobody connected; all samples")
+    for k in FIELDS[1:]:
+        v = [float(r[k]) for r in busy]
+        out.append(f"  {k:16} avg {sum(v) / len(v):9.1f}   peak {max(v):9.1f}")
+    ts = [time.mktime(time.strptime(r["time"], "%Y-%m-%dT%H:%M:%S")) for r in rows]
+    iv = (ts[-1] - ts[0]) / (len(ts) - 1) if len(ts) > 1 else 5.0
+    rx = sum(float(r["rx_kbit"]) for r in rows) * iv / 8 / 1e6
+    tx = sum(float(r["tx_kbit"]) for r in rows) * iv / 8 / 1e6
+    out.append(f"  total traffic: in {rx:.2f} GB, out {tx:.2f} GB")
+    return "\n".join(out) + "\n"
+
+
+if __name__ == "__main__":
+    cmd = sys.argv[1] if len(sys.argv) > 1 else "summary"
+    if cmd == "record":
+        iv = float(sys.argv[3]) if len(sys.argv) > 3 and sys.argv[2] == "--interval" else 5.0
+        record(iv)
+    elif cmd == "summary":
+        sys.stdout.write(summary(sys.argv[2] if len(sys.argv) > 2 else None))
+    else:
+        sys.exit(__doc__)
