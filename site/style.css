@@ -64,7 +64,7 @@ p { margin: 0; }
 .roundel { width: 0.92em; height: 0.92em; flex: none; }
 
 .walk-wrap { margin: clamp(14px, 2vw, 24px) 0 0; overflow: hidden; }
-.walk { display: block; width: 100%; min-width: 760px; height: auto; max-width: none; color: var(--accent); }
+.walk { display: block; width: 100%; height: auto; color: var(--accent); }
 .walk .line { fill: none; stroke: currentColor; stroke-width: 7; stroke-linecap: round; }
 .walk .hit { fill: var(--hit); }
 .walk .tick { stroke: currentColor; stroke-width: 6; stroke-linecap: round; }
@@ -75,6 +75,11 @@ p { margin: 0; }
   .walk .line { stroke-dasharray: 1; animation: draw 1.6s linear .1s backwards; }
   .walk .hit, .walk .tick { animation: land .28s ease-out backwards; }
   .walk .hit { transform-box: fill-box; transform-origin: center; }
+}
+.walk-narrow { display: none; }
+@media (max-width: 820px) {
+  .walk-wide { display: none; }
+  .walk-narrow { display: block; }
 }
 @keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 @keyframes land { from { opacity: 0; transform: scale(.4); } to { opacity: 1; transform: none; } }
@@ -202,7 +207,7 @@ main { max-width: var(--max); margin: clamp(72px, 10vw, 140px) auto 0; padding: 
   .label { position: static; margin-bottom: 24px; color: var(--muted); }
   .libs { grid-template-columns: 1fr; }
   .intro { grid-template-columns: 1fr; }
-  .caption { order: 2; max-width: 40ch; padding-top: 0; }
+  .caption { max-width: 40ch; padding-top: 0; }
 }
 @media (max-width: 520px) {
   .project { grid-template-columns: 44px 1fr; gap: 4px 16px; }

@@ -50,7 +50,11 @@ chalkwalk prefers a dark background and wanted the Chalk Walk logo used.
   `calc()` to span the column exactly, over a chalk-textured line that is the
   Euclidean rhythm E(5,16) (SVG with an feTurbulence filter). It draws once on
   load, at a constant pace; its resting state is drawn, and reduced motion skips
-  the animation. The caption beside the statement says what it is.
+  the animation. The caption says what it is (beside the statement on desktop,
+  directly under the line on phones). Two drawings of the same 16 steps, wide for
+  desktop and compressed for phones (≤820px), so the whole rhythm always shows;
+  `tools/walk.py` generates both into `index.html` between `<!--walk:…-->`
+  markers. Don't edit the SVG by hand.
 - Layout: an index. Each section has its name in a narrow left column (sticky on
   desktop) and content on the right; rows, not cards; left-aligned throughout.
   The hero uses the same grid.
