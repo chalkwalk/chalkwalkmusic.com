@@ -12,8 +12,9 @@ in `docs/hosting-plan.md`.
 ## Layout
 
 - `site/`: the whole website, plain static HTML and CSS, no build step.
-  `index.html`, `style.css`, `favicon.svg`, `img/` (each project's own mark, 128 px,
-  from its site's `img/logo.*`), `CNAME`.
+  `index.html`, `style.css`, `favicon.png`, `apple-touch-icon.png`, `img/` (the
+  roundel, each project's own mark at 128 px from its site's `img/logo.*`, and
+  the social card), `CNAME`.
 - `.github/workflows/pages.yml`: deploys `site/` to GitHub Pages on every push to
   `main` that touches it.
 - `docs/`: planning notes. Not published.
@@ -26,26 +27,35 @@ GitHub Actions, with the custom domain `chalkwalkmusic.com` (bare; `www` redirec
 Preview locally: open `site/index.html` in a browser, or
 `python3 -m http.server -d site 8000`. Check it at phone width (390px) too.
 
-## Design (second version, 2026-11-09)
+## Design (third version, 2026-11-09)
 
-The brand page for the person, not a fifth project site: it must look unlike the
-dark Docusaurus project sites. chalkwalk rejected the first version (dark, Inter,
-cyan, identical cards) as looking AI-made or stock; the brief is "a high-end
-brand": real information, presented directly, bespoke.
+The brand page for the person, not a fifth project site. chalkwalk rejected the
+first version (near-black, Inter, cyan, identical cards) as looking AI-made or
+stock; the brief is "a high-end brand": real information, presented directly,
+bespoke. The second version (light chalk ground) got the layout right, but
+chalkwalk prefers a dark background and wanted the Chalk Walk logo used.
 
-- Palette: Chalk `#ecede8` (ground, cool; not cream), Graphite `#1f2328` (text),
-  Pencil `#5d636a` (secondary), Dust `#c9ccc5` (hairlines), Pigment `#2d4bc4`
-  (ultramarine chalk: the line and links only).
-- Type: Archivo with its width axis (wordmark at 125% width, weight 800, sized by
-  `calc()` to span the column exactly; names at ~118%) and Source Serif 4 for all
-  running text. No monospace, no all-caps labels, no middle-dot lists, no arrows.
-- The one bold element: the "Chalk Walk" wordmark over a chalk-textured line that
-  is the Euclidean rhythm E(5,16) (SVG with an feTurbulence filter). It draws once
-  on load, at a constant pace; its resting state is drawn, and reduced motion skips
+- The logo is the "CW" roundel (orange C, cyan W, purple ring segments, dark
+  aubergine outline): the YouTube and GitHub avatar. `img/chalkwalk.webp` is cut
+  from the 1024 px YouTube avatar with a transparent edge; `favicon.png` and
+  `apple-touch-icon.png` come from the same cut.
+- Palette, all taken from the roundel: Ground `#1a0e15` (aubergine, not stock
+  near-black), Ink `#eee8e4` (chalk), Muted `#a8979f`, Rule `#3a2834` (hairlines),
+  Ring `#6b2a66` (section rules), Accent `#5ec6df` (the W: the line, links,
+  subdomains), Hit `#f08920` (the C: the rhythm's hits, focus outlines).
+- Type: Archivo with its width axis (wordmark at 125% width, weight 800; names at
+  ~118%) and Source Serif 4 for all running text. No monospace, no all-caps labels,
+  no middle-dot lists, no arrows.
+- The one bold element: the roundel and "Chalk Walk" as one lockup, sized by
+  `calc()` to span the column exactly, over a chalk-textured line that is the
+  Euclidean rhythm E(5,16) (SVG with an feTurbulence filter). It draws once on
+  load, at a constant pace; its resting state is drawn, and reduced motion skips
   the animation. The caption beside the statement says what it is.
 - Layout: an index. Each section has its name in a narrow left column (sticky on
   desktop) and content on the right; rows, not cards; left-aligned throughout.
   The hero uses the same grid.
+- `img/social-card.jpg` (1200×630) is the link preview, rendered from the page's
+  own CSS; re-render it if the hero changes.
 - Voice: first person, plain, specific. The focus is the GitHub/dev work; teaching
   and music are one section. No Twitter/X.
 
