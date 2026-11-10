@@ -12,8 +12,8 @@ in `docs/hosting-plan.md`.
 ## Layout
 
 - `site/`: the whole website, plain static HTML and CSS, no build step.
-  `index.html`, `style.css`, `favicon.svg`, `img/` (project images: WebP, 800×420,
-  made from each project site's `img/social-card.png`), `CNAME`.
+  `index.html`, `style.css`, `favicon.svg`, `img/` (each project's own mark, 128 px,
+  from its site's `img/logo.*`), `CNAME`.
 - `.github/workflows/pages.yml`: deploys `site/` to GitHub Pages on every push to
   `main` that touches it.
 - `docs/`: planning notes. Not published.
@@ -26,10 +26,28 @@ GitHub Actions, with the custom domain `chalkwalkmusic.com` (bare; `www` redirec
 Preview locally: open `site/index.html` in a browser, or
 `python3 -m http.server -d site 8000`. Check it at phone width (390px) too.
 
-Style: professional and restrained, dark like the project sites (Docusaurus,
-#0f1216-ish backgrounds, cyan accent `#3ad1e0`), Inter + JetBrains Mono. The focus
-is the GitHub/dev work; music and video are a short section and footer links.
-No Twitter/X (not used).
+## Design (second version, 2026-11-09)
+
+The brand page for the person, not a fifth project site: it must look unlike the
+dark Docusaurus project sites. chalkwalk rejected the first version (dark, Inter,
+cyan, identical cards) as looking AI-made or stock; the brief is "a high-end
+brand": real information, presented directly, bespoke.
+
+- Palette: Chalk `#ecede8` (ground, cool; not cream), Graphite `#1f2328` (text),
+  Pencil `#5d636a` (secondary), Dust `#c9ccc5` (hairlines), Pigment `#2d4bc4`
+  (ultramarine chalk: the line and links only).
+- Type: Archivo with its width axis (wordmark at 125% width, weight 800, sized by
+  `calc()` to span the column exactly; names at ~118%) and Source Serif 4 for all
+  running text. No monospace, no all-caps labels, no middle-dot lists, no arrows.
+- The one bold element: the "Chalk Walk" wordmark over a chalk-textured line that
+  is the Euclidean rhythm E(5,16) (SVG with an feTurbulence filter). It draws once
+  on load, at a constant pace; its resting state is drawn, and reduced motion skips
+  the animation. The caption beside the statement says what it is.
+- Layout: an index. Each section has its name in a narrow left column (sticky on
+  desktop) and content on the right; rows, not cards; left-aligned throughout.
+  The hero uses the same grid.
+- Voice: first person, plain, specific. The focus is the GitHub/dev work; teaching
+  and music are one section. No Twitter/X.
 
 ## DNS (2026-11-09)
 

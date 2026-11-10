@@ -4,139 +4,167 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Chalk Walk Music</title>
-  <meta name="description" content="Chalk Walk Music: open-source music software. Audio plugins, NINJAM tools and C++ libraries, built in the open.">
+  <meta name="description" content="Chalk Walk makes instruments and tools for electronic musicians: audio plugins, the C++ libraries under them, and a monthly online jam. All open source.">
   <meta property="og:title" content="Chalk Walk Music">
-  <meta property="og:description" content="Open-source music software: audio plugins, NINJAM tools and C++ libraries.">
+  <meta property="og:description" content="Instruments and tools for electronic musicians: audio plugins, C++ libraries and a monthly online jam. All open source.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://chalkwalkmusic.com/">
   <link rel="canonical" href="https://chalkwalkmusic.com/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="top">
-    <div class="wrap top-inner">
-      <a class="mark" href="/">Chalk Walk<span>Music</span></a>
-      <nav>
-        <a href="#software">Software</a>
-        <a href="#libraries">Libraries</a>
-        <a href="#jam">Jam</a>
-        <a href="https://github.com/chalkwalk">GitHub</a>
-      </nav>
+  <a class="skip" href="#work">Skip to the work</a>
+
+  <header class="masthead">
+    <nav class="nav" aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#libraries">Libraries</a>
+      <a href="#jam">Jam</a>
+      <a href="#teaching">Teaching</a>
+      <a href="https://github.com/chalkwalk">GitHub</a>
+    </nav>
+    <h1 class="wordmark">Chalk Walk</h1>
+    <div class="walk-wrap">
+<svg class="walk" viewBox="0 0 1600 88" width="1600" height="88" aria-hidden="true" focusable="false">
+      <defs>
+        <filter id="chalk" x="-2%" y="-40%" width="104%" height="180%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="noise"/>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" result="rough"/>
+          <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.6 2.05" result="grain"/>
+          <feComposite in="rough" in2="grain" operator="in"/>
+        </filter>
+      </defs>
+      <g filter="url(#chalk)">
+        <path class="line" pathLength="1" d="M8.0 44.2 Q8.0 44.2 17.9 44.5 Q27.8 44.7 37.7 44.9 Q47.6 45.1 57.5 45.4 Q67.4 45.6 77.3 45.6 Q87.2 45.5 97.1 45.8 Q107.0 46.1 116.9 45.4 Q126.8 44.8 136.7 45.3 Q146.6 45.8 156.5 46.3 Q166.4 46.8 176.3 46.6 Q186.2 46.5 196.1 46.8 Q206.0 47.1 215.9 46.4 Q225.8 45.7 235.7 46.1 Q245.6 46.5 255.5 46.3 Q265.4 46.1 275.3 46.4 Q285.2 46.7 295.1 46.7 Q305.0 46.7 314.9 46.2 Q324.8 45.7 334.7 45.8 Q344.6 46.0 354.5 46.0 Q364.4 46.0 374.3 46.5 Q384.2 47.0 394.1 46.8 Q404.0 46.5 413.9 45.9 Q423.8 45.3 433.7 45.7 Q443.6 46.2 453.5 45.5 Q463.4 44.8 473.3 45.1 Q483.2 45.4 493.1 44.8 Q503.0 44.3 512.9 44.0 Q522.8 43.8 532.7 44.4 Q542.6 45.0 552.5 44.3 Q562.4 43.6 572.3 43.4 Q582.2 43.3 592.1 43.8 Q602.0 44.4 611.9 44.1 Q621.8 43.9 631.7 43.2 Q641.6 42.6 651.5 43.1 Q661.4 43.5 671.3 43.0 Q681.2 42.5 691.1 42.5 Q701.0 42.6 710.9 42.0 Q720.8 41.5 730.7 42.1 Q740.6 42.6 750.5 42.3 Q760.4 42.0 770.3 42.2 Q780.2 42.4 790.1 42.3 Q800.0 42.2 809.9 41.6 Q819.8 41.1 829.7 41.1 Q839.6 41.2 849.5 41.0 Q859.4 40.8 869.3 40.8 Q879.2 40.8 889.1 40.8 Q899.0 40.7 908.9 41.0 Q918.8 41.2 928.7 41.6 Q938.6 41.9 948.5 41.5 Q958.4 41.0 968.3 41.7 Q978.2 42.4 988.1 42.2 Q998.0 42.0 1007.9 42.1 Q1017.8 42.2 1027.7 42.7 Q1037.6 43.3 1047.5 43.1 Q1057.4 43.0 1067.3 43.0 Q1077.2 42.9 1087.1 43.2 Q1097.0 43.5 1106.9 43.9 Q1116.8 44.2 1126.7 43.8 Q1136.6 43.3 1146.5 44.3 Q1156.4 45.3 1166.3 44.6 Q1176.2 43.8 1186.1 44.6 Q1196.0 45.4 1205.9 45.6 Q1215.8 45.9 1225.7 45.2 Q1235.6 44.6 1245.5 45.4 Q1255.4 46.2 1265.3 46.0 Q1275.2 45.7 1285.1 46.0 Q1295.0 46.2 1304.9 45.8 Q1314.8 45.4 1324.7 45.5 Q1334.6 45.6 1344.5 45.7 Q1354.4 45.9 1364.3 46.6 Q1374.2 47.4 1384.1 46.7 Q1394.0 46.0 1403.9 46.6 Q1413.8 47.1 1423.7 47.2 Q1433.6 47.3 1443.5 47.3 Q1453.4 47.3 1463.3 46.7 Q1473.2 46.1 1483.1 46.1 Q1493.0 46.0 1502.9 46.1 Q1512.8 46.2 1522.7 46.3 Q1532.6 46.5 1542.5 45.8 Q1552.4 45.1 1562.3 45.5 Q1572.2 46.0 1582.1 45.9 L1592.0 45.9"/>
+        <circle class="hit" style="animation-delay:0.20s" cx="57.5" cy="45.4" r="15.6"/>
+        <line class="tick" style="animation-delay:0.29s" x1="155.4" y1="34.3" x2="157.6" y2="58.3"/>
+        <line class="tick" style="animation-delay:0.38s" x1="256.6" y1="34.3" x2="254.4" y2="58.3"/>
+        <line class="tick" style="animation-delay:0.47s" x1="353.5" y1="34.0" x2="355.5" y2="58.0"/>
+        <circle class="hit" style="animation-delay:0.56s" cx="453.5" cy="45.5" r="14.7"/>
+        <line class="tick" style="animation-delay:0.65s" x1="552.8" y1="32.3" x2="552.2" y2="56.3"/>
+        <line class="tick" style="animation-delay:0.74s" x1="652.5" y1="31.1" x2="650.5" y2="55.1"/>
+        <circle class="hit" style="animation-delay:0.83s" cx="750.5" cy="42.3" r="14.7"/>
+        <line class="tick" style="animation-delay:0.92s" x1="850.5" y1="29.0" x2="848.5" y2="53.0"/>
+        <line class="tick" style="animation-delay:1.01s" x1="948.6" y1="29.5" x2="948.4" y2="53.5"/>
+        <circle class="hit" style="animation-delay:1.10s" cx="1047.5" cy="43.1" r="14.7"/>
+        <line class="tick" style="animation-delay:1.19s" x1="1146.1" y1="32.3" x2="1146.9" y2="56.3"/>
+        <line class="tick" style="animation-delay:1.28s" x1="1244.7" y1="33.4" x2="1246.3" y2="57.4"/>
+        <circle class="hit" style="animation-delay:1.37s" cx="1344.5" cy="45.7" r="14.3"/>
+        <line class="tick" style="animation-delay:1.46s" x1="1442.7" y1="35.3" x2="1444.3" y2="59.3"/>
+        <line class="tick" style="animation-delay:1.55s" x1="1543.0" y1="33.8" x2="1542.0" y2="57.8"/>
+      </g>
+    </svg>
+    </div>
+    <div class="intro">
+      <p class="caption">The line is a Euclidean rhythm, E(5,16): five hits spread as evenly as they can be over sixteen steps. Arps Euclidya is built on them.</p>
+      <p class="statement">
+        I make instruments and tools for electronic musicians: audio plugins, the
+        C++ libraries they’re built from, and a monthly room where people improvise
+        together over the internet. I also teach synthesis on YouTube. All of the
+        software is open source.
+      </p>
     </div>
   </header>
 
   <main>
-    <section class="hero wrap">
-      <p class="eyebrow">Open-source music software</p>
-      <h1>Instruments, tools and libraries for making music with computers.</h1>
-      <p class="lede">
-        Chalk Walk Music is where I build audio plugins, tools for playing
-        together over the internet, and the C++ libraries underneath them.
-        Everything is developed in the open on GitHub.
-      </p>
-      <div class="actions">
-        <a class="btn primary" href="#software">See the projects</a>
-        <a class="btn" href="https://github.com/chalkwalk">github.com/chalkwalk</a>
+    <section class="block" id="work" aria-labelledby="work-h">
+      <h2 class="label" id="work-h">Instruments</h2>
+      <div class="content">
+        <a class="project" href="https://antiphon.chalkwalkmusic.com">
+          <img class="mark" src="img/antiphon.webp" alt="" width="64" height="64">
+          <h3>Antiphon</h3>
+          <p class="desc">A NINJAM client shaped as an audio plugin. Jam with people over the internet without leaving your DAW, and record every player as a separate stem.</p>
+          <p class="facts"><span>VST3, CLAP and standalone</span><span class="host">antiphon.chalkwalkmusic.com</span></p>
+        </a>
+        <a class="project" href="https://lockstep.chalkwalkmusic.com">
+          <img class="mark" src="img/lockstep.svg" alt="" width="64" height="64">
+          <h3>Lockstep</h3>
+          <p class="desc">A step sequencer you play rather than configure: one grammar of scopes and verbs across the whole surface, per-step parameter locks, and tracks that host any sound engine.</p>
+          <p class="facts"><span>VST3, CLAP, standalone, and AU on macOS</span><span class="host">lockstep.chalkwalkmusic.com</span></p>
+        </a>
+        <a class="project" href="https://arps.chalkwalkmusic.com">
+          <img class="mark" src="img/arps.webp" alt="" width="64" height="64">
+          <h3>Arps Euclidya</h3>
+          <p class="desc">A modular, node-based MIDI environment for rhythm and harmony: two Euclidean rhythm engines, chord logic, 32 global macros, multiple outputs and MPE.</p>
+          <p class="facts"><span>VST3, CLAP and standalone</span><span class="host">arps.chalkwalkmusic.com</span></p>
+        </a>
       </div>
     </section>
 
-    <section id="software" class="wrap section">
-      <h2>Software</h2>
-      <div class="cards">
-        <a class="card" href="https://antiphon.chalkwalkmusic.com">
-          <img src="img/antiphon.webp" alt="" width="800" height="420" loading="lazy">
-          <div class="card-body">
-            <h3>Antiphon</h3>
-            <p>A NINJAM client shaped as an audio plugin: jam with people over the internet from inside your DAW, and record every player as a separate stem.</p>
-            <p class="meta">VST3 · CLAP · Standalone</p>
-            <p class="host">antiphon.chalkwalkmusic.com</p>
-          </div>
+    <section class="block" aria-labelledby="tools-h">
+      <h2 class="label" id="tools-h">Other tools</h2>
+      <div class="content">
+        <a class="project" href="https://canopy.chalkwalkmusic.com">
+          <img class="mark round" src="img/canopy.webp" alt="" width="64" height="64">
+          <h3>StarCanopy</h3>
+          <p class="desc">Skyboxes for space games, baked on the GPU in HDR: a lit nebula, the galaxy’s band and its stars, from a seed and a few controls that describe the sky.</p>
+          <p class="facts"><span>Cubemap generator</span><span class="host">canopy.chalkwalkmusic.com</span></p>
         </a>
-        <a class="card" href="https://lockstep.chalkwalkmusic.com">
-          <img src="img/lockstep.webp" alt="" width="800" height="420" loading="lazy">
-          <div class="card-body">
-            <h3>Lockstep</h3>
-            <p>A step sequencer you play, not configure: one scope-and-verb grammar across the whole surface, per-step parameter locks, and tracks that host any sound engine.</p>
-            <p class="meta">VST3 · CLAP · Standalone · AU</p>
-            <p class="host">lockstep.chalkwalkmusic.com</p>
-          </div>
-        </a>
-        <a class="card" href="https://arps.chalkwalkmusic.com">
-          <img src="img/arps.webp" alt="" width="800" height="420" loading="lazy">
-          <div class="card-body">
-            <h3>Arps Euclidya</h3>
-            <p>A modular, node-based MIDI environment: dual Euclidean rhythm engines, chord logic and 32 global macros, with multiple outputs and MPE.</p>
-            <p class="meta">VST3 · CLAP · Standalone</p>
-            <p class="host">arps.chalkwalkmusic.com</p>
-          </div>
-        </a>
-        <a class="card" href="https://canopy.chalkwalkmusic.com">
-          <img src="img/canopy.webp" alt="" width="800" height="420" loading="lazy">
-          <div class="card-body">
-            <h3>StarCanopy</h3>
-            <p>Procedural skyboxes for space games, baked on the GPU in HDR: a lit nebula, the galaxy's band and its stars, from a seed and a few descriptive controls.</p>
-            <p class="meta">Cubemap generator</p>
-            <p class="host">canopy.chalkwalkmusic.com</p>
-          </div>
-        </a>
-      </div>
-
-      <h3 class="sub">Also on GitHub</h3>
-      <ul class="list">
-        <li><a href="https://github.com/chalkwalk/chalkwalk-jambot">chalkwalk-jambot</a><span>Bots that play in a NINJAM room on the interval grid, hold a key and a chart, and read the chat.</span></li>
-        <li><a href="https://github.com/chalkwalk/solvespace-ng">solvespace-ng</a><span>A fork of SolveSpace with a keyboard-first UI, an Open CASCADE kernel and multi-part assemblies.</span></li>
-        <li><a href="https://github.com/chalkwalk/asteroid-generator">asteroid-generator</a><span>Procedural game asteroids sculpted from a simulated impact history, with baked PBR maps.</span></li>
-      </ul>
-    </section>
-
-    <section id="libraries" class="wrap section">
-      <h2>Libraries</h2>
-      <p class="section-lede">The parts the plugins are built from, published on their own. C++17, JUCE-free, MIT licensed.</p>
-      <div class="libs">
-        <a class="lib" href="https://github.com/chalkwalk/chalkwalk-ninjam"><code>chalkwalk-ninjam</code><span>The NINJAM wire protocol: frames, auth, Vorbis, the interval clock.</span></a>
-        <a class="lib" href="https://github.com/chalkwalk/chalkwalk-dsp"><code>chalkwalk-dsp</code><span>Filters, polyBLEP, soft clipping, interpolation, and calibrated measurement.</span></a>
-        <a class="lib" href="https://github.com/chalkwalk/chalkwalk-tape"><code>chalkwalk-tape</code><span>A tape deck as a library: medium, heads, layers and a polyphase resampler.</span></a>
-        <a class="lib" href="https://github.com/chalkwalk/chalkwalk-physical"><code>chalkwalk-physical</code><span>Waveguide and modal resonators, struck and bowed exciters, MPE mapping.</span></a>
-        <a class="lib" href="https://github.com/chalkwalk/chalkwalk-music"><code>chalkwalk-music</code><span>Header-only music theory, including Euclidean rhythms with a phase contract.</span></a>
-        <a class="lib" href="https://github.com/chalkwalk/chalkwalk-seed"><code>chalkwalk-seed</code><span>Deterministic derivation: the same answer on every computer.</span></a>
+        <ul class="minor">
+          <li><a href="https://github.com/chalkwalk/solvespace-ng">solvespace-ng</a> A fork of SolveSpace with a keyboard-first interface, an Open CASCADE kernel and multi-part assemblies.</li>
+          <li><a href="https://github.com/chalkwalk/asteroid-generator">asteroid-generator</a> Asteroids for games, sculpted from a simulated history of impacts, with baked PBR maps.</li>
+        </ul>
       </div>
     </section>
 
-    <section id="jam" class="wrap section jam">
-      <div>
-        <h2>Virtual Open Electronic Improv</h2>
-        <p>
-          Once a month we open a NINJAM room and improvise together: electronic
-          instruments, anyone welcome. Join with Antiphon from inside your DAW, or
-          with any NINJAM client.
+    <section class="block" id="libraries" aria-labelledby="libs-h">
+      <h2 class="label" id="libs-h">Libraries</h2>
+      <div class="content">
+        <p class="lede">The parts the plugins are built from, published on their own. C++17, no JUCE, MIT licence.</p>
+        <dl class="libs">
+          <div><dt><a href="https://github.com/chalkwalk/chalkwalk-ninjam">chalkwalk-ninjam</a></dt><dd>The NINJAM wire protocol: frames, authentication, Vorbis and the interval clock.</dd></div>
+          <div><dt><a href="https://github.com/chalkwalk/chalkwalk-dsp">chalkwalk-dsp</a></dt><dd>Filters, polyBLEP oscillators, soft clipping, interpolation, and calibrated measurement.</dd></div>
+          <div><dt><a href="https://github.com/chalkwalk/chalkwalk-tape">chalkwalk-tape</a></dt><dd>A tape deck as a library: medium, heads, layers, seams and a polyphase resampler.</dd></div>
+          <div><dt><a href="https://github.com/chalkwalk/chalkwalk-physical">chalkwalk-physical</a></dt><dd>Waveguide and modal resonators, struck and bowed exciters, MPE mapping.</dd></div>
+          <div><dt><a href="https://github.com/chalkwalk/chalkwalk-music">chalkwalk-music</a></dt><dd>Header-only music theory, with Euclidean rhythms you can rely on.</dd></div>
+          <div><dt><a href="https://github.com/chalkwalk/chalkwalk-seed">chalkwalk-seed</a></dt><dd>Deterministic derivation: the same answer on every computer.</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="block" id="jam" aria-labelledby="jam-h">
+      <h2 class="label" id="jam-h">The monthly jam</h2>
+      <div class="content">
+        <h3 class="title">Virtual Open Electronic Improv</h3>
+        <p>Once a month I open a NINJAM room and anyone with an electronic instrument can come and improvise. NINJAM keeps everyone in time across the internet: you hear each other one interval late, always on the beat, so distance doesn’t matter. Join with Antiphon from inside your DAW, or with any NINJAM client.</p>
+        <p class="note">The next date will be posted here.</p>
+        <p class="also">The jam has its own software: <a href="https://github.com/chalkwalk/chalkwalk-jambot">chalkwalk-jambot</a>, bots that sit in the room, play on the interval grid, hold a key and a chart, and read the chat.</p>
+        <a class="button" href="https://antiphon.chalkwalkmusic.com">Get Antiphon</a>
+      </div>
+    </section>
+
+    <section class="block" id="teaching" aria-labelledby="teach-h">
+      <h2 class="label" id="teach-h">Teaching and music</h2>
+      <div class="content">
+        <p class="lede">Video series on synthesis and sound design, made to be followed from the first patch to a finished sound.</p>
+        <ul class="series">
+          <li>FM synthesis on the Sonicware Liven XFM, from presets to a whole track</li>
+          <li>Subtractive synthesis, across several synthesizers</li>
+          <li>Keyboard technique and music theory for synth players</li>
+          <li>The Korg opsix, operator by operator</li>
+          <li>The ASM Hydrasynth, through the whole signal path</li>
+          <li>Sound Design: Here:Create, sound design from a picture and a prompt</li>
+        </ul>
+        <p class="outlets">
+          <a href="https://youtube.com/ChalkWalkMusic">YouTube</a>
+          <a href="https://chalkwalk.bandcamp.com">Bandcamp</a>
+          <a href="https://soundcloud.com/chalkwalk">SoundCloud</a>
         </p>
-        <p class="muted">Dates and how to join will be posted here.</p>
-      </div>
-      <a class="btn" href="https://antiphon.chalkwalkmusic.com">Get Antiphon</a>
-    </section>
-
-    <section class="wrap section">
-      <h2>Music &amp; video</h2>
-      <p class="section-lede">
-        Tutorial series on sound design and synthesis (FM, subtractive, Korg opsix,
-        ASM Hydrasynth, Liven XFM), the <em>Sound Design: Here:Create</em> projects,
-        and released music.
-      </p>
-      <div class="links">
-        <a href="https://youtube.com/ChalkWalkMusic">YouTube</a>
-        <a href="https://chalkwalk.bandcamp.com">Bandcamp</a>
-        <a href="https://soundcloud.com/chalkwalk">SoundCloud</a>
       </div>
     </section>
   </main>
 
-  <footer class="wrap foot">
-    <span>© Chalk Walk Music</span>
-    <span><a href="https://github.com/chalkwalk">GitHub</a> · <a href="https://youtube.com/ChalkWalkMusic">YouTube</a></span>
+  <footer class="footer">
+    <p class="sign">Chalk Walk Music</p>
+    <p class="footlinks">
+      <a href="https://github.com/chalkwalk">GitHub</a>
+      <a href="https://youtube.com/ChalkWalkMusic">YouTube</a>
+      <a href="https://github.com/chalkwalk/chalkwalkmusic.com">Source of this site</a>
+    </p>
   </footer>
 </body>
 </html>
